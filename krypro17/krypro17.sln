@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSA_Encrypt_Decrypt", "RSA_Encrypt_Decrypt\RSA_Encrypt_Decrypt.csproj", "{485C3978-ADC5-4279-B1B9-6EF8D1BD7C72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSA", "RSA_Encrypt_Decrypt\RSA.csproj", "{485C3978-ADC5-4279-B1B9-6EF8D1BD7C72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC", "EC_Scalar_Multiplication\EC.csproj", "{574D18CE-0A6F-41CE-9485-F7289F74BA06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSA", "DSA\DSA.csproj", "{6449052E-63AD-4F03-9770-11FD4F5012EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HASH", "ConsoleApplication1\HASH.csproj", "{AC2F3D5B-C920-427F-A6AC-8C3D7F550C18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "X509v3", "X509v3\X509v3.csproj", "{27D377DB-5682-47CF-B79E-DFE88F159E27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMAC", "HMAC\HMAC.csproj", "{896BF2CD-1AB9-4ED4-8103-E7774B3563D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_Server", "Client_Server\Client_Server.csproj", "{1B120B1B-F72B-4E80-A40D-433C56F5EC19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +27,30 @@ Global
 		{485C3978-ADC5-4279-B1B9-6EF8D1BD7C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{485C3978-ADC5-4279-B1B9-6EF8D1BD7C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{485C3978-ADC5-4279-B1B9-6EF8D1BD7C72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{574D18CE-0A6F-41CE-9485-F7289F74BA06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{574D18CE-0A6F-41CE-9485-F7289F74BA06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{574D18CE-0A6F-41CE-9485-F7289F74BA06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{574D18CE-0A6F-41CE-9485-F7289F74BA06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6449052E-63AD-4F03-9770-11FD4F5012EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6449052E-63AD-4F03-9770-11FD4F5012EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6449052E-63AD-4F03-9770-11FD4F5012EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6449052E-63AD-4F03-9770-11FD4F5012EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC2F3D5B-C920-427F-A6AC-8C3D7F550C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC2F3D5B-C920-427F-A6AC-8C3D7F550C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC2F3D5B-C920-427F-A6AC-8C3D7F550C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC2F3D5B-C920-427F-A6AC-8C3D7F550C18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27D377DB-5682-47CF-B79E-DFE88F159E27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27D377DB-5682-47CF-B79E-DFE88F159E27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27D377DB-5682-47CF-B79E-DFE88F159E27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27D377DB-5682-47CF-B79E-DFE88F159E27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{896BF2CD-1AB9-4ED4-8103-E7774B3563D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896BF2CD-1AB9-4ED4-8103-E7774B3563D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896BF2CD-1AB9-4ED4-8103-E7774B3563D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{896BF2CD-1AB9-4ED4-8103-E7774B3563D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B120B1B-F72B-4E80-A40D-433C56F5EC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B120B1B-F72B-4E80-A40D-433C56F5EC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B120B1B-F72B-4E80-A40D-433C56F5EC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B120B1B-F72B-4E80-A40D-433C56F5EC19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
