@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Text_hashing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Text_hashing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
