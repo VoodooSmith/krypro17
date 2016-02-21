@@ -11,6 +11,10 @@ namespace Client_Server
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello World!");
+            Console.WriteLine("I'm fucking alive!");
+            Console.WriteLine("Press a fuckin' key...");
+            Console.ReadKey();
         }
     }
 }
