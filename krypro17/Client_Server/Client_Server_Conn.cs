@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ 
+  Client & Server for Cryptographic Protocolls
+  Author: Thomas Schmiedecker
+  23. 02. 2016
+  
+*/
+
+using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
