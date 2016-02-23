@@ -1,6 +1,7 @@
 ﻿/*
  
-  DSA for Cryptographic Protocolls
+  DSA-Signature Generation & Verification
+  Cryptographic Protocolls ITS17
   Author: Thomas Schmiedecker
   23. 02. 2016
   

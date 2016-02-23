@@ -1,6 +1,7 @@
 ﻿/*
  
-  Client & Server for Cryptographic Protocolls
+  Client & Server Architecture 
+  Cryptographic Protocolls ITS17
   Author: Thomas Schmiedecker
   23. 02. 2016
   

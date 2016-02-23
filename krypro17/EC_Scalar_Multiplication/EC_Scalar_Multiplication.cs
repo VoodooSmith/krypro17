@@ -1,6 +1,7 @@
 ﻿/*
  
-  Scalar Multiplication in EC for Cryptographic Protocolls
+  EC Scalar Multiplication
+  Cryptographic Protocolls ITS17
   Author: Thomas Schmiedecker
   23. 02. 2016
   

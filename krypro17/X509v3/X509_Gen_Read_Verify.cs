@@ -1,6 +1,7 @@
 ﻿/*
  
-  X.509v3 for Cryptographic Protocolls
+  X.509v3-Certificate reading, generating & verifying
+  Cryptographic Protocolls ITS17
   Author: Thomas Schmiedecker
   23. 02. 2016
   

@@ -1,6 +1,7 @@
 ﻿/*
  
-  RSA for Cryptographic Protocolls
+  RSA Encrypt / Decrypt / Key Generation 
+  Cryptographic Protocolls ITS17
   Author: Thomas Schmiedecker
   23. 02. 2016
   
@@ -20,18 +21,19 @@ namespace RSA
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Console.WriteLine("I'm fucking alive!");
-            Console.WriteLine("Press a fuckin' key...");
-            Console.ReadKey();
+		/*	1. Zwei große Primzahlen p und q erzeugen.
+			2. n = p ∗ q berechnen.
+			3. Phi(n) = (p − 1)(q − 1) berechnen.
+			4. Eine zufällige Zahl e wählen, für die 1 < e < Phi(n) und gcd(e, Phi(n)) = 1 gilt. 
+			5.EineZahl d mit 1 < d < Phi(n)errechnen,sodass ed mod Phi(n) = 1 gilt.
+
+			Öffentliche Teile von RSA: n, e 
+			Private Teile von RSA: p, q, Phi(n), d
+
+			E: c = m^e mod n
+			D: m' = c^d mod n 
+
+		*/
         }
     }
 }
-/*
-    - RSA Encrypt / Decrypt / Key Generation
-    - EC Skalare Multiplikation
-    - DSA Signature Generation & Verification
-    - HASH of arbitrary texts with arbitraty functions
-    - X.509v3 Certificates reading, generating, verifying
-    - Client / Server Architecture
-    - HMAC
-*/
