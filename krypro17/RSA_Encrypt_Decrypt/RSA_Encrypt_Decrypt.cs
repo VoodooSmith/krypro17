@@ -22,28 +22,44 @@ namespace RSA
 		private BigInteger p = 0;
 		private BigInteger q = 0;
 		private static Byte[] px;
-		private static Byte[] qy;
+		//private static Byte[] qy;
 
         static void Main(string[] args)
         {
 			Console.WriteLine ("Ping!");
             System.Security.Cryptography.RNGCryptoServiceProvider secrand = new System.Security.Cryptography.RNGCryptoServiceProvider();
-            px = new byte[10];
-            for (int i = 0; i < 10; i++)
-            {
-                // Fill array
-                secrand.GetBytes(px);
+            px = new byte[256];
+            secrand.GetBytes(px);
+            BigInteger pxvalue = BitConverter.ToUInt64(px, 0);
+            //pxvalue = System.Math.Abs(pxvalue);
+            Console.WriteLine(pxvalue);
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    // fill array
+            //    secrand.getbytes(px);
 
-                // Convert to int32
-                int pxvalue = BitConverter.ToInt32(px, 0);
-                pxvalue = System.Math.Abs(pxvalue);
-                Console.WriteLine(pxvalue);
-            }
+            //    // convert to int32
+            //    int pxvalue = bitconverter.toint32(px, 0);
+            //    pxvalue = system.math.abs(pxvalue);
+            //    console.writeline(pxvalue);
+            //}
+            Display(px);
             Console.WriteLine ("End of code");
             Console.WriteLine("Press Enter to end");
             Console.ReadLine();
 		}
-	}
+
+        static void Display(byte[] array)
+        {
+            // Loop through and display bytes in array.
+            foreach (byte value in array)
+            {
+                Console.Write(value);
+                Console.Write(' ');
+            }
+            Console.WriteLine();
+        }
+    }
 }
 		/*	1. Zwei große Primzahlen p und q erzeugen.
 			2. n = p ∗ q berechnen.
