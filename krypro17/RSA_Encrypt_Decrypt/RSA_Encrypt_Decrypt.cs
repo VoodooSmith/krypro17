@@ -14,13 +14,31 @@ using System.Net;
 using System.Collections;
 using System.Numerics;
 
+
 namespace RSA
 {
     class RSA_Encrypt_Decrypt
     {
+		private BigInteger p = 0;
+		private BigInteger q = 0;
+		private Byte[] px;
+		private Byte[] qy;
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+			Console.WriteLine ("Hello World!");
+			px = new System.Security.Cryptography.RNGCryptoServiceProvider (byte());
+			px.
+			foreach(byte item in px)
+			{
+				Console.WriteLine (item.ToString());
+			}
+			Console.WriteLine ("End of code");
+			Console.WriteLine ("Press any key...");
+			Console.ReadKey ();
+		}
+	}
+}
 		/*	1. Zwei große Primzahlen p und q erzeugen.
 			2. n = p ∗ q berechnen.
 			3. Phi(n) = (p − 1)(q − 1) berechnen.
@@ -34,6 +52,3 @@ namespace RSA
 			D: m' = c^d mod n 
 
 		*/
-        }
-    }
-}
