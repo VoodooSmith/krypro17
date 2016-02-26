@@ -21,21 +21,27 @@ namespace RSA
     {
 		private BigInteger p = 0;
 		private BigInteger q = 0;
-		private Byte[] px;
-		private Byte[] qy;
+		private static Byte[] px;
+		private static Byte[] qy;
 
         static void Main(string[] args)
         {
-			Console.WriteLine ("Hello World!");
-			px = new System.Security.Cryptography.RNGCryptoServiceProvider (byte());
-			px.
-			foreach(byte item in px)
-			{
-				Console.WriteLine (item.ToString());
-			}
-			Console.WriteLine ("End of code");
-			Console.WriteLine ("Press any key...");
-			Console.ReadKey ();
+			Console.WriteLine ("Ping!");
+            System.Security.Cryptography.RNGCryptoServiceProvider secrand = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            px = new byte[10];
+            for (int i = 0; i < 10; i++)
+            {
+                // Fill array
+                secrand.GetBytes(px);
+
+                // Convert to int32
+                int pxvalue = BitConverter.ToInt32(px, 0);
+                pxvalue = System.Math.Abs(pxvalue);
+                Console.WriteLine(pxvalue);
+            }
+            Console.WriteLine ("End of code");
+            Console.WriteLine("Press Enter to end");
+            Console.ReadLine();
 		}
 	}
 }
