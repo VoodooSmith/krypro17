@@ -9,61 +9,57 @@ namespace Extended_Euclid
 {
     public class ExtendedEuclidianAlgo
     {
-
-        static void Main(string[] args)
+        public BigInteger ExtendedEuclid(BigInteger n, BigInteger m)
         {
-
-        }
-
-        public BigInteger ExtendedEuclid(BigInteger m, BigInteger n)
-        {
-            BigInteger temp_n = n, temp_m = m;                   // temporäre Variablen um n und m für die Ausgabe zu speichern
-            BigInteger temp_x = 0, temp_y = 0;                   // temporäre Variablen um x und y für die Tabellenrechnung zu speichern
-            BigInteger q = 0, temp = 0, temp_1_m = 0;            // q stellt den multiplikativen Faktor dar, temp ist ein Zwischenspeicher		
-            BigInteger a = 1, b = 0;                             // a und b stellen Zeile 1 (1 0) der Tabellenform dar
-            BigInteger x = 0, y = 1;                             // x und y stellen Zeile 2 (0 1) der Tabellenform dar
+            BigInteger temp_n = n, temp_m = m;                   // temp variables to store "n" and "m" for final output
+            BigInteger temp_x = 0, temp_y = 0;                   // temp variables to stors "x" und "y" for the matrix transformation
+            BigInteger q = 0, temp = 0, future_n = 0;            // "q" is the quotient, temp is a buffer
+            BigInteger a = 1, b = 0, inv = 0;                             // "a" and "b" is the first row of column 1 (1 0) 
+            BigInteger x = 0, y = 1;                             // "x" and "y" is the first row of column 2 (0 1
 
             if (m > n)
             {
-                temp = n;                         // Vor der Berechnung tauschen die Werte von n und m untereinander die Plätze
+                /* Bevor the calculation, "n" and "m" have to switch places */
+                temp = n;
                 n = m;
                 m = temp;
             }
             while (m != 0)
             {
-                //for(q=0; n>=m; q++)				// Subtraktion m von n und Inkrementierung von q pro Schleifendurchlauf 
-                //{
-                //	n=n-m;						// um den negativen Multiplikator für die Matrizenumformung zu finden 
-                //}	
-                temp_1_m = m;
+                /* Storage of "m" in "future_n" for future "n" */
+                future_n = m;
 
+                /* Calculation of quotient */
                 q = n / m;
+                /* Calculation of future "m" */
                 m = n % m;
 
-                temp_x = x;                       // x wird gesichert um nachher a mit dem korrekten Wert ersetzen zu können
-                x = x * (q * (-1));               // Matrizenumformung - Multiplikation mit negativem q
-                x = x + a;                        // Matrizenumformung - Addition von x und a für neues x
+                temp_x = x;                       // x is getting stored for later use 
+                x = x * (q * (-1));               // Matrix transformation - multiplication with negative "q"
+                x = x + a;                        // Matrix transformation - Addition "x" and "a" for new "x"
 
-                temp_y = y;                       // y wird gesichert um nachher b mit dem korrekten Wert ersetzen zu können
-                y = y * (q * (-1));               // Matrizenumformung - Multiplikation mit negativem q
-                y = y + b;                        // Matrizenumformung - Addition von y und b für neues y
+                temp_y = y;                       // y is getting stored for later use 
+                y = y * (q * (-1));               // Matrix transformation - Multiplication with negative "q"
+                y = y + b;                        // Matrix transformation - Addition of "y" and "b" for new "y"
 
-                a = temp_x;                       // Matrizenumformung - a bekommt den Wert von x vor den Matrizenumformungen
-                b = temp_y;                       // Matrizenumformung - b bekommt den Wert von y vor den Matrizenumformungen
+                a = temp_x;                       // Matrix transformation - "a" gets value of "x" before matrix transformation
+                b = temp_y;                       // Matrix transformation - "b" gets value ov "y" before matrix transformation
 
-                n = temp_1_m;
-
-                //temp=n;							// da n nun kleiner als m ist und somit die Schleife frühzeitig verlassen würde,
-                //n=m;							// tauschen die Werte von n und m die Plätze untereinander
-                //m=temp;
+                /* "n" for next round */
+                n = future_n;
             }
-            Console.WriteLine ("Der GCD lautet: %llu\n", n);                                                                    
-            Console.WriteLine ("Der LCM lautet: %llu\n", (x * y * (-1)) / n);
-            /* Ausgabe Koordinaten und Formel */                                                 
-            Console.WriteLine ("Die ganzzahligen Koordinaten sind %lld * %llu + %lld * %llu = %llu\n", a, temp_n, b, temp_m, n);        
-        
-            m = m + n;
-            return m;
+
+            //Console.WriteLine ("The integer coordinates are {0} * {1} + {2} * {3} = {4}\n", a, temp_n, b, temp_m, n);
+
+            if (b < 0)
+            {
+                inv = temp_m - a;
+                return inv;
+            }
+            return b;
         }
+
+        static void Main(string[] args)
+        { }
     }
 }
