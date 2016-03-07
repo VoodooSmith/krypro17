@@ -3,7 +3,7 @@
   HASH of arbitrary texts with arbitraty functions
   Cryptographic Protocolls ITS17
   Author: Thomas Schmiedecker
-  23. 02. 2016
+  07. 03. 2016
   
 */
 
