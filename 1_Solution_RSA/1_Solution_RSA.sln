@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSA", "RSA\RSA.csproj", "{959B4358-7AFD-47AD-BD2B-1E5F0381DA41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended_Euclid", "Extended_Euclid\Extended_Euclid.csproj", "{9AF0D477-B5B5-478A-9914-94C5DA1E7760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MillerRabinTest", "MillerRabinTest\MillerRabinTest.csproj", "{9793251C-98FE-4780-B487-BD2208C431EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{959B4358-7AFD-47AD-BD2B-1E5F0381DA41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{959B4358-7AFD-47AD-BD2B-1E5F0381DA41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{959B4358-7AFD-47AD-BD2B-1E5F0381DA41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{959B4358-7AFD-47AD-BD2B-1E5F0381DA41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AF0D477-B5B5-478A-9914-94C5DA1E7760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF0D477-B5B5-478A-9914-94C5DA1E7760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF0D477-B5B5-478A-9914-94C5DA1E7760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF0D477-B5B5-478A-9914-94C5DA1E7760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9793251C-98FE-4780-B487-BD2208C431EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9793251C-98FE-4780-B487-BD2208C431EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9793251C-98FE-4780-B487-BD2208C431EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9793251C-98FE-4780-B487-BD2208C431EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
