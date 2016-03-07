@@ -8,10 +8,6 @@
 */
 
 using System;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Net;
-using System.Collections;
 using System.Numerics;
 using Extended_Euclid;
 using MillerRabinTest;

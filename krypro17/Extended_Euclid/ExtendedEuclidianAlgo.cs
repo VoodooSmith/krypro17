@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Net;
-using System.Collections;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace Extended_Euclid
 {
@@ -14,7 +9,7 @@ namespace Extended_Euclid
             BigInteger temp_n = n, temp_m = m;                   // temp variables to store "n" and "m" for final output
             BigInteger temp_x = 0, temp_y = 0;                   // temp variables to stors "x" und "y" for the matrix transformation
             BigInteger q = 0, temp = 0, future_n = 0;            // "q" is the quotient, temp is a buffer
-            BigInteger a = 1, b = 0, inv = 0;                             // "a" and "b" is the first row of column 1 (1 0) 
+            BigInteger a = 1, b = 0, inv = 0;                    // "a" and "b" is the first row of column 1 (1 0) 
             BigInteger x = 0, y = 1;                             // "x" and "y" is the first row of column 2 (0 1
 
             if (m > n)
