@@ -28,34 +28,13 @@ namespace Kryptprot_RSA
         private static BigInteger phiOfN = 0;
         private static BigInteger d = 0;
         private static int exponent = 65537; /* e = 2^16+1 (1 modulare Multiplikation + 16 Quadrierungen)*/
-        private static Byte[] byte_px;
-		private static Byte[] byte_qy;
 
         static void Main(string[] args)
         {
-            /* Starting Secure RNG */
-            System.Security.Cryptography.RNGCryptoServiceProvider secrand = new System.Security.Cryptography.RNGCryptoServiceProvider();
-            byte_px = new byte[256];
-            byte_qy = new byte[256];
-
-            //do
-            //{
-                /* Get cryptographic bytearray */
-                secrand.GetBytes(byte_px);
-                /* Convert bytearray to BigInteger */
-                big_px = new BigInteger(byte_px);
-                big_px = BigInteger.Abs(big_px);
-            //} while (!MRT.IsPrime(big_px, big_n));
-
-            //do
-            //{
-                /* Get cryptographic bytearray */
-                secrand.GetBytes(byte_qy);
-                /* Convert bytearray to BigInteger */
-                big_qy = new BigInteger(byte_qy);
-                big_qy = BigInteger.Abs(big_qy);
-            //} while (!MRT.IsPrime(big_qy, big_n));
-
+            /* Generting prime numbers "p" and "q"*/
+            big_px = MRT.getPrime(1024);
+            big_qy = MRT.getPrime(1024);
+            
             /* Calculate Modulus n */
             big_n = BigInteger.Multiply(big_px, big_qy);
 
@@ -79,13 +58,21 @@ namespace Kryptprot_RSA
             }
 
             /* Ecryption of bytestream "m^e mod n" */
-            byte[] bMes = {1,2,3,4,5};
-            BigInteger message = new BigInteger(bMes);
+            Console.WriteLine("Please enter your text here:");
+            string text = Console.ReadLine();
+            byte[] asciitext = System.Text.Encoding.ASCII.GetBytes(text);
+            BigInteger message = new BigInteger(asciitext);
+            Console.WriteLine("Message before encryption: {0}",text);
             BigInteger cipher = BigInteger.ModPow(message, exponent, big_n);
             Console.WriteLine("Encryption: {0}", cipher);
-            byte[] decrypt_bmes = cipher.ToByteArray();
             
+
             /* Decryption of bytestream */
+            BigInteger decrypt_mes = BigInteger.ModPow(cipher, d, big_n);
+            byte[] decrypt_bmes = decrypt_mes.ToByteArray();
+            string de_text = System.Text.Encoding.ASCII.GetString(decrypt_bmes);
+            Console.WriteLine("Decryption: {0}", decrypt_mes);
+            Console.WriteLine("Message after decryption: {0}", de_text);
 
             Console.WriteLine ("End of code");
             Console.WriteLine ("Press Enter to end");
@@ -105,16 +92,16 @@ namespace Kryptprot_RSA
         }
     }
 }
-/*	x1. Zwei große Primzahlen p und q erzeugen.
-    x2. n = p ∗ q berechnen.
-    x3. Phi(n) = (p − 1)(q − 1) berechnen.
-    x4. Eine zufällige Zahl e wählen, für die 1 < e < Phi(n) und gcd(e, Phi(n)) = 1 gilt. 
-    x5.EineZahl d mit 1 < d < Phi(n)errechnen,sodass ed mod Phi(n) = 1 gilt.
+/*	
+    1. Zwei große Primzahlen p und q erzeugen.
+    2. n = p ∗ q berechnen.
+    3. Phi(n) = (p − 1)(q − 1) berechnen.
+    4. Eine zufällige Zahl e wählen, für die 1 < e < Phi(n) und gcd(e, Phi(n)) = 1 gilt. 
+    5.EineZahl d mit 1 < d < Phi(n)errechnen,sodass ed mod Phi(n) = 1 gilt.
 
     Öffentliche Teile von RSA: n, e 
     Private Teile von RSA: p, q, Phi(n), d
 
     E: c = m^e mod n
-    D: m' = c^d mod n 
-
+    D: m' = c^d mod n
 */
