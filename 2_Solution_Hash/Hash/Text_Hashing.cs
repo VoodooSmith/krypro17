@@ -24,9 +24,17 @@ namespace Hash
             Console.WriteLine("Press 2 for SHA256");
             Console.WriteLine("Press 3 for SHA384");
             Console.WriteLine("Press 4 for SHA512\n");
-            Console.WriteLine("Confirm with ENTER");
-            Console.Write("Choice: ");
+            Console.WriteLine("Confirm with ENTER");    
+            Console.Write("Choice (1-4): ");
             hashAlgo = Convert.ToInt32(Console.ReadLine());
+            if (hashAlgo < 1 || hashAlgo > 4)
+            {
+                do
+                {
+                    Console.Write("Please enter valid choice (1 - 4): ");
+                    hashAlgo = Convert.ToInt32(Console.ReadLine());
+                } while (hashAlgo < 1 || hashAlgo > 4);
+            }
 
             switch (hashAlgo)
             {

@@ -27,6 +27,8 @@ namespace Kryptprot_RSA
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Welcome to the RSA encryption and decryption solution");
+            Console.WriteLine("Please wait while we are generating the prime numbers...\n");
             /* Generting prime numbers "p" and "q"*/
             big_px = MRT.getPrime(1024);
             big_qy = MRT.getPrime(1024);
