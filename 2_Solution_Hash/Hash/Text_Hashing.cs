@@ -16,7 +16,7 @@ namespace Hash
         static void Main(string[] args)
         {
             System.Security.Cryptography.HashAlgorithm secHash = null;
-            int hashAlgo = 0;
+			int count = 0;
 
             /* Selection of hash algorithm */
             Console.WriteLine("Please select a hash algorithm\n");
@@ -26,15 +26,20 @@ namespace Hash
             Console.WriteLine("Press 4 for SHA512\n");
             Console.WriteLine("Confirm with ENTER");    
             Console.Write("Choice (1-4): ");
-            hashAlgo = Convert.ToInt32(Console.ReadLine());
+			int hashAlgo = Convert.ToInt32(Console.ReadLine());
             if (hashAlgo < 1 || hashAlgo > 4)
             {
                 do
                 {
                     Console.Write("Please enter valid choice (1 - 4): ");
                     hashAlgo = Convert.ToInt32(Console.ReadLine());
-                } while (hashAlgo < 1 || hashAlgo > 4);
+					count++;
+                } while (hashAlgo < 1 || hashAlgo > 4 || count == 2);
             }
+			if (count == 2) 
+			{
+				throw new System.ArgumentNullException();
+			}
 
             switch (hashAlgo)
             {
