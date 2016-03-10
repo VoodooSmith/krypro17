@@ -16,7 +16,6 @@ namespace Hash
         static void Main(string[] args)
         {
             System.Security.Cryptography.HashAlgorithm secHash = null;
-			int count = 0;
 
             /* Selection of hash algorithm */
             Console.WriteLine("Please select a hash algorithm\n");
@@ -33,14 +32,9 @@ namespace Hash
                 {
                     Console.Write("Please enter valid choice (1 - 4): ");
                     hashAlgo = Convert.ToInt32(Console.ReadLine());
-					count++;
-                } while (hashAlgo < 1 || hashAlgo > 4 || count == 2);
+                } while (hashAlgo < 1 || hashAlgo > 4);
             }
-			if (count == 2) 
-			{
-				throw new System.ArgumentNullException();
-			}
-
+			
             switch (hashAlgo)
             {
                 case 1:
@@ -73,7 +67,7 @@ namespace Hash
             byte[] textHash = secHash.ComputeHash(asciitext);
 
             /* Hashed output as byte array*/
-            Console.Write("Hashed text: ");
+            Console.Write("Hashed string: ");
             Display(textHash);
            
             Console.WriteLine("End of code");

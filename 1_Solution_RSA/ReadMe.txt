@@ -1,8 +1,8 @@
-###############
-#	      #
-#  RSA Setup  #
-# 	      #
-###############
+#################
+#				#
+#	RSA Setup	#
+#				#
+#################
 
 
 Solution Parts
@@ -14,7 +14,8 @@ Solution Parts
 
 Build Information
 ******************************
-Target-Framework 4.5 (compatible with Apple)
+Target-Framework:
+.NET Framework 4.5 (compatible with Apple)
 
 If References are missing, add the following:
 	1)	Extended_Euclidian
