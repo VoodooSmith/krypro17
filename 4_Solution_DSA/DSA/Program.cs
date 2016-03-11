@@ -4,9 +4,25 @@ namespace DSA
 {
 	class MainClass
 	{
-		public static void Main (string[] args)
+		public static int Main (string[] args)
 		{
-			Console.WriteLine ("Hello World!");
+			SignObject();
+			return(0);
 		}
+
+        public static void InitDSA()
+        {
+            
+        }
+
+		public static void SignObject()
+		{
+			
+		}
+        
+        public static void VerifyObject()
+        {
+            
+        }
 	}
 }
