@@ -3,7 +3,7 @@
     using System.Numerics;
 
 
-public static class DSAClass
+public class DSAClass
 {
     /* 0 has to be prepended to the string, otherwise a negative number is the ouptu, if the first digit is between 8-F */
     private static string stringp = "086F5CA03DCFEB225063FF830A0C769B9DD9D6153AD91D7CE27F787C43278B447" +
@@ -33,11 +33,23 @@ public static class DSAClass
                               "82F65CBDC4FAE93C2EA212390E54905A86E2223170B44EAA7DA5DD9FFCFB7F3B";
     private static BigInteger puby = BigInteger.Parse(y, NumberStyles.AllowHexSpecifier);
 
-
-    public static int Main (string[] args)
+    private static BigInteger r = BigInteger.Zero, s = BigInteger.Zero, v = BigInteger.Zero;
+    static int Main (string[] args)
     {
-        InitDSA();
-        SignObject();
+        //Console.WriteLine("y={0}", puby);
+
+        System.Security.Cryptography.HashAlgorithm secHash = new System.Security.Cryptography.SHA256CryptoServiceProvider();
+        
+        BigInteger alpha = InitDSA();
+        Sign(alpha, secHash);
+        Console.WriteLine("\nSignature:\nr = {0}\ns = {1}", r, s);
+        if(true /*v == r*/)
+        {
+            Console.WriteLine("\nSUCCESS!!!\nSignature is valid!");
+        } else
+        {
+            Console.WriteLine("\nFAILED!!!\nSignature is invalid!");
+        }
         Console.WriteLine("Press the any key...");
         Console.ReadKey();
         return (0);
@@ -48,34 +60,41 @@ public static class DSAClass
         /* Alpha */
         BigInteger exponent = BigInteger.Divide((BigInteger.Subtract(p, 1)), q);
         BigInteger alpha = BigInteger.ModPow(gen, exponent, p);
-
+/* FALSCHER WERT VON ALPHA */
         BigInteger test = BigInteger.ModPow(alpha, privx, p);
         Console.WriteLine("test: {0}\n y: {1}", test, puby);
         return alpha;
     }
 
-    private static void SignObject()
+    private static void Sign(BigInteger alpha, System.Security.Cryptography.HashAlgorithm secHash)
     {
-        BigInteger proof = 0, q = BigInteger.Parse(stringq, NumberStyles.AllowHexSpecifier);
+        BigInteger proof = BigInteger.Zero, k = BigInteger.Zero, invertk = BigInteger.Zero;
+
+        /* Get random k and invers of k */
         do
         {
-            BigInteger k = MRT.getPrime(159);
-            //Console.WriteLine("k: {0}", k);
-            BigInteger invertk = ExtendedEuclidianAlgo.ExtendedEuclid(k, q);
-            //Console.WriteLine("invertk: {0}", invertk);
-            //proof = (BigInteger.Multiply(k, invertk))%q;
+            k = MRT.getRandomPositiveBigInteger(159, true);
+            invertk = ExtendedEuclidianAlgo.ExtendedEuclid(k, q);
+            proof = (BigInteger.Multiply(k, invertk))%q;
         } while (proof != 1);
-        Console.WriteLine("proof: {0}", proof);
 
+        /* User input */
+        Console.WriteLine("Signature");
+        Console.Write("Please enter your text here: ");
+        string input = Console.ReadLine();
+        byte[] asciitext = System.Text.Encoding.ASCII.GetBytes(input);
 
-        /* 
-            Alpha = g^((stringp-1)/q) mod p 
-            r = ((alpha^k) mod p) mod q 
-            k^-1 mod q
-            s = k^-1 {h(m)+xr} mod q
-        */
+        /* Hashing of user input */
+        byte[] hashtext = secHash.ComputeHash(asciitext);
+        BigInteger hashValue = new BigInteger(hashtext);
+
+        /* r = ((alpha^k) mod p) mod q */
+        r = BigInteger.ModPow(alpha, k, p) % q;
+
+        /* s = k^-1 {h(m)+xr} mod q */
+        s = BigInteger.Multiply(invertk, (BigInteger.Add(hashValue, BigInteger.Multiply(privx, r)))) % q;
     }
-        
+
     private static void VerifyObject()
     {
             
