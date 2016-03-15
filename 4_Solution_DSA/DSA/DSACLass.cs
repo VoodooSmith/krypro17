@@ -32,8 +32,10 @@ public class DSAClass
                               "4CE935437DC11C3C8FD426338933EBFE739CB3465F4D3668C5E473508253B1E6" +
                               "82F65CBDC4FAE93C2EA212390E54905A86E2223170B44EAA7DA5DD9FFCFB7F3B";
     private static BigInteger puby = BigInteger.Parse(y, NumberStyles.AllowHexSpecifier);
-
     private static BigInteger r = BigInteger.Zero, s = BigInteger.Zero, v = BigInteger.Zero;
+    private static byte[] hashtext = null;
+
+
     static int Main (string[] args)
     {
         //Console.WriteLine("y={0}", puby);
@@ -43,17 +45,22 @@ public class DSAClass
         BigInteger alpha = InitDSA();
         Sign(alpha, secHash);
         Console.WriteLine("\nSignature:\nr = {0}\ns = {1}", r, s);
-        if(true /*v == r*/)
+        Boolean result = VerifyObject(alpha, secHash);
+        
+
+        /* Final Output */
+        if (result)
         {
-            Console.WriteLine("\nSUCCESS!!!\nSignature is valid!");
+            Console.WriteLine("SUCCESS!!!\nSignature is valid!");
         } else
         {
-            Console.WriteLine("\nFAILED!!!\nSignature is invalid!");
+            Console.WriteLine("FAILED!!!\nSignature is invalid!");
         }
         Console.WriteLine("Press the any key...");
         Console.ReadKey();
         return (0);
     }
+
 
     private static BigInteger InitDSA()
     {
@@ -62,12 +69,14 @@ public class DSAClass
         BigInteger alpha = BigInteger.ModPow(gen, exponent, p);
 /* FALSCHER WERT VON ALPHA */
         BigInteger test = BigInteger.ModPow(alpha, privx, p);
-        Console.WriteLine("test: {0}\n y: {1}", test, puby);
+        //Console.WriteLine("test: {0}\n y: {1}", test, puby);
         return alpha;
     }
 
+
     private static void Sign(BigInteger alpha, System.Security.Cryptography.HashAlgorithm secHash)
     {
+        
         BigInteger proof = BigInteger.Zero, k = BigInteger.Zero, invertk = BigInteger.Zero;
 
         /* Get random k and invers of k */
@@ -75,19 +84,19 @@ public class DSAClass
         {
             k = MRT.getRandomPositiveBigInteger(159, true);
             invertk = ExtendedEuclidianAlgo.ExtendedEuclid(k, q);
-            proof = (BigInteger.Multiply(k, invertk))%q;
+            proof = (BigInteger.Multiply(k, invertk)) % q;
         } while (proof != 1);
 
         /* User input */
-        Console.WriteLine("Signature");
         Console.Write("Please enter your text here: ");
         string input = Console.ReadLine();
         byte[] asciitext = System.Text.Encoding.ASCII.GetBytes(input);
+        Console.WriteLine("\nStarted signing...");
 
         /* Hashing of user input */
-        byte[] hashtext = secHash.ComputeHash(asciitext);
+        hashtext = secHash.ComputeHash(asciitext);
         BigInteger hashValue = new BigInteger(hashtext);
-
+        
         /* r = ((alpha^k) mod p) mod q */
         r = BigInteger.ModPow(alpha, k, p) % q;
 
@@ -95,9 +104,32 @@ public class DSAClass
         s = BigInteger.Multiply(invertk, (BigInteger.Add(hashValue, BigInteger.Multiply(privx, r)))) % q;
     }
 
-    private static void VerifyObject()
+
+    private static bool VerifyObject(BigInteger alpha, System.Security.Cryptography.HashAlgorithm secHash)
     {
-            
+        Console.WriteLine("\nVerification of signature started...");
+        if (r < q && s < q)
+        {
+            /* Calculate w and h(m) */
+            BigInteger w = ExtendedEuclidianAlgo.ExtendedEuclid(q, s);
+            BigInteger hashValue = new BigInteger(hashtext);
+
+ /* FEHLER BEI HASHVALUE - WERT WIRD NICHT GESPEICHERT*/           /* Calculate u_one and u_two */
+            BigInteger uone = BigInteger.Multiply(w, hashValue) % q;
+            BigInteger utwo = BigInteger.Multiply(r, w) % q;
+
+            /* Calculation of v */
+            //BigInteger tempalpha = BigInteger.ModPow(alpha, uone, p);
+            //BigInteger tempy = BigInteger.ModPow(puby, utwo, p);
+            BigInteger v = BigInteger.Multiply(BigInteger.ModPow(alpha, uone, p), BigInteger.ModPow(puby, utwo, p)) % q;
+            Console.WriteLine("\nVerification:\nv = {0}", v);
+
+            if (BigInteger.Compare(v, r) == 0)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
