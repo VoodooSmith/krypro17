@@ -33,6 +33,7 @@ public class DSAClass
                               "82F65CBDC4FAE93C2EA212390E54905A86E2223170B44EAA7DA5DD9FFCFB7F3B";
     private static BigInteger puby = BigInteger.Parse(y, NumberStyles.AllowHexSpecifier);
     private static BigInteger r = BigInteger.Zero, s = BigInteger.Zero, v = BigInteger.Zero;
+    private static BigInteger hashValue = BigInteger.Zero;
     private static byte[] hashtext = null;
 
 
@@ -40,21 +41,21 @@ public class DSAClass
     {
         //Console.WriteLine("y={0}", puby);
 
-        System.Security.Cryptography.HashAlgorithm secHash = new System.Security.Cryptography.SHA256CryptoServiceProvider();
+        System.Security.Cryptography.HashAlgorithm secHash = new System.Security.Cryptography.SHA384CryptoServiceProvider();
         
         BigInteger alpha = InitDSA();
         Sign(alpha, secHash);
         Console.WriteLine("\nSignature:\nr = {0}\ns = {1}", r, s);
-        Boolean result = VerifyObject(alpha, secHash);
+        Boolean result = VerifyObject(alpha, hashValue);
         
 
         /* Final Output */
         if (result)
         {
-            Console.WriteLine("SUCCESS!!!\nSignature is valid!");
+            Console.WriteLine("\nSUCCESS!!!\nSignature is valid!");
         } else
         {
-            Console.WriteLine("FAILED!!!\nSignature is invalid!");
+            Console.WriteLine("\nFAILED!!!\nSignature is invalid!");
         }
         Console.WriteLine("Press the any key...");
         Console.ReadKey();
@@ -95,7 +96,7 @@ public class DSAClass
 
         /* Hashing of user input */
         hashtext = secHash.ComputeHash(asciitext);
-        BigInteger hashValue = new BigInteger(hashtext);
+        hashValue = new BigInteger(hashtext);
         
         /* r = ((alpha^k) mod p) mod q */
         r = BigInteger.ModPow(alpha, k, p) % q;
@@ -105,19 +106,27 @@ public class DSAClass
     }
 
 
-    private static bool VerifyObject(BigInteger alpha, System.Security.Cryptography.HashAlgorithm secHash)
-    {
+    private static bool VerifyObject(BigInteger alpha, BigInteger hashValue)
+    { 
         Console.WriteLine("\nVerification of signature started...");
+        BigInteger w = BigInteger.Zero, uone = BigInteger.Zero, utwo = BigInteger.Zero;
+        BigInteger hashed = hashValue;
+
         if (r < q && s < q)
         {
             /* Calculate w and h(m) */
-            BigInteger w = ExtendedEuclidianAlgo.ExtendedEuclid(q, s);
-            BigInteger hashValue = new BigInteger(hashtext);
+            w = ExtendedEuclidianAlgo.ExtendedEuclid(q, s);
+            //hashValue = new BigInteger(hashtext);
 
- /* FEHLER BEI HASHVALUE - WERT WIRD NICHT GESPEICHERT*/           /* Calculate u_one and u_two */
-            BigInteger uone = BigInteger.Multiply(w, hashValue) % q;
-            BigInteger utwo = BigInteger.Multiply(r, w) % q;
-
+            /* FEHLER BEI HASHVALUE - WERT WIRD NICHT GESPEICHERT*/           /* Calculate u_one and u_two */
+          
+            uone = BigInteger.Multiply(w, hashValue) % q;
+            utwo = BigInteger.Multiply(r, w) % q;
+            if(uone.IsZero || utwo.IsZero)
+            {
+                VerifyObject(alpha, hashed);
+            }
+            
             /* Calculation of v */
             //BigInteger tempalpha = BigInteger.ModPow(alpha, uone, p);
             //BigInteger tempy = BigInteger.ModPow(puby, utwo, p);
