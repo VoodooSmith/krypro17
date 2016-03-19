@@ -23,6 +23,7 @@ namespace Kryptprot_RSA
         private static BigInteger big_n = 0;
         private static BigInteger phiOfN = 0;
         private static BigInteger d = 0;
+        private static BigInteger proofGcd = BigInteger.Zero, proofInvers = BigInteger.Zero;
         private static int exponent = 65537; /* e = 2^16+1 (1 modulare Multiplikation + 16 Quadrierungen)*/
 
         static void Main(string[] args)
@@ -30,30 +31,32 @@ namespace Kryptprot_RSA
             Console.WriteLine("Welcome to the RSA encryption and decryption solution");
             Console.WriteLine("Please wait while we are generating the prime numbers...\n");
             /* Generting prime numbers "p" and "q"*/
-            big_px = MRT.getPrime(1024);
-            big_qy = MRT.getPrime(1024);
-
-            /* Calculate Modulus n */
-            big_n = BigInteger.Multiply(big_px, big_qy);
-
-            /* Calculate Phi(n)*/
-            phiOfN = BigInteger.Multiply(BigInteger.Subtract(big_px, 1), BigInteger.Subtract(big_qy, 1));
-
-            /* Proof of gcd(e, phi(n)) = 1 */
-            BigInteger proofGcd = BigInteger.GreatestCommonDivisor(exponent, phiOfN);
-            if (proofGcd != 1)
+            while (!(proofInvers.IsOne))
             {
-                throw new System.ArgumentOutOfRangeException();
+                big_px = MRT.getPrime(1024);
+                big_qy = MRT.getPrime(1024);
+
+                /* Calculate Modulus n */
+                big_n = BigInteger.Multiply(big_px, big_qy);
+
+                /* Calculate Phi(n)*/
+                phiOfN = BigInteger.Multiply(BigInteger.Subtract(big_px, 1), BigInteger.Subtract(big_qy, 1));
+
+                /* Proof of gcd(e, phi(n)) = 1 */
+                proofGcd = BigInteger.GreatestCommonDivisor(exponent, phiOfN);
+
+                /* Calculate multiplicative invers d of e */
+                ExtendedEuclidianAlgo multinvert_e = new ExtendedEuclidianAlgo();
+                d = multinvert_e.ExtendedEuclid(exponent, phiOfN);
+                proofInvers = (BigInteger.Multiply(exponent, d)) % phiOfN;
+                
+                if(!(proofInvers.IsOne))
+                {
+                    Console.WriteLine("Incompatible prime numbers\nStart new generation of primes...\n");
+                }
             }
 
-            /* Calculate multiplicative invers d of e */
-            ExtendedEuclidianAlgo multinvert_e = new ExtendedEuclidianAlgo();
-            d = multinvert_e.ExtendedEuclid(exponent, phiOfN);
-            BigInteger proofinvers = (BigInteger.Multiply(exponent, d)) % phiOfN;
-            if (proofinvers != 1)
-            {
-                throw new System.ArgumentOutOfRangeException();
-            }
+            Console.WriteLine("Found compatible primes");
 
             /* Ecryption of bytestream "m^e mod n" */
             Console.WriteLine("Please enter your text here:");
@@ -64,7 +67,6 @@ namespace Kryptprot_RSA
             BigInteger cipher = BigInteger.ModPow(message, exponent, big_n);
             Console.WriteLine("Encryption: {0}", cipher);
 
-
             /* Decryption of bytestream */
             BigInteger decrypt_mes = BigInteger.ModPow(cipher, d, big_n);
             byte[] decrypt_bmes = decrypt_mes.ToByteArray();
@@ -72,9 +74,9 @@ namespace Kryptprot_RSA
             Console.WriteLine("Decryption: {0}", decrypt_mes);
             Console.WriteLine("Message after decryption: {0}", de_text);
 
-            Console.WriteLine("End of code");
-            Console.WriteLine("Press Enter to end");
-            Console.ReadLine();
+            Console.WriteLine("\nEnd of code");
+            Console.WriteLine("Press the any key to end...");
+            Console.ReadKey();
         }
 
         /* Display bytearray */
@@ -90,6 +92,8 @@ namespace Kryptprot_RSA
         }
     }
 }
+
+
 /*	
     1. Zwei große Primzahlen p und q erzeugen.
     2. n = p ∗ q berechnen.
