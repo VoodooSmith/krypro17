@@ -1,9 +1,13 @@
 #################
-#				#
-#	RSA Setup	#
-#				#
+#               #
+#   RSA Setup   #
+#               #
 #################
 
+Program start
+******************************
+1)	Navigate to folder 1_Solution_RSA\RSA\bin\Release
+2)	Doubleclick the application RSA.exe
 
 Solution Parts
 ******************************
@@ -38,11 +42,7 @@ x) Encryption and Decryption values will be displayed
 x) Decrypted string will be displayed to control the algorithm
 
 
-IMPORTANT
-******************************
-If OutOfRangeException occurs, terminate program and 
-start program again. In this case the prime numbers weren't coprime.
-	
+
 
 
 
