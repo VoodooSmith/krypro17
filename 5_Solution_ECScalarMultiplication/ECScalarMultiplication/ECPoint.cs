@@ -12,13 +12,33 @@ using System.Numerics;
 
 struct ECPoint
 {
-    BigInteger x;
-    BigInteger y;
+    private BigInteger x;
+    private BigInteger y;
 
     public void SetECPoint(BigInteger x, BigInteger y)
     {
         this.x = x;
         this.y = y;
+    }
+
+    public void SetX(BigInteger x)
+    {
+        this.x = x;
+    }
+
+    public void SetY(BigInteger y)
+    {
+        this.y = y;
+    }
+
+    public BigInteger GetX()
+    {
+        return x;
+    }
+
+    public BigInteger GetY()
+    {
+        return y;
     }
 
     public void printPoint ()

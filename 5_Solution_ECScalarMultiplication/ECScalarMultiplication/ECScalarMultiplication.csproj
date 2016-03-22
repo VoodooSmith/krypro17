@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="ECPoint.cs" />
     <Compile Include="EllipticCurve.cs" />
+    <Compile Include="CurveMethods.cs" />
+    <Compile Include="ExtendedEuclid.cs" />
     <Compile Include="ScalarMultiplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -21,13 +21,20 @@ namespace ECScalarMultiplication
     {
         static void Main(string[] args)
         {
-            EllipticCurve p224 = EllipticCurve.P224();
+            EllipticCurve P224 = EllipticCurve.P224();
             ECPoint basePoint = new ECPoint();
+            ECPoint P = new ECPoint();
+            ECPoint Q = new ECPoint();
+            ECPoint test = new ECPoint();
 
-            basePoint.SetECPoint(p224.GetBaseX(), p224.GetBaseY());
-            basePoint.printPoint();
+            P.SetECPoint(BigInteger.Parse("2"), BigInteger.Parse("6"));
+            Q.SetECPoint(BigInteger.Parse("2"), BigInteger.Parse("6"));
+            test = CurveMethods.PointAddition(P, Q, P224);
+            test.printPoint();
 
-            p224.CurveToString();
+            //basePoint.SetECPoint(p224.GetBaseX(), p224.GetBaseY());
+            //basePoint.printPoint();
+            //p224.CurveToString();
 
             Console.WriteLine("\nPress the any key to end...");
             Console.ReadKey();

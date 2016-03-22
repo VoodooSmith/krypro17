@@ -46,6 +46,11 @@ using System.Numerics;
         return this.n;
     }
 
+    public BigInteger GetA()
+    {
+        return this.a;
+    }
+
     public BigInteger GetBaseX()
     {
         return this.BPx;
