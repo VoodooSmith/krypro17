@@ -37,12 +37,12 @@ namespace Hash
                 result = false;
                 while (!result)
                 {
-                    result = Int32.TryParse(hashIn, out hashAlgo);
+                    result = int.TryParse(hashIn, out hashAlgo);
                     if (!result || hashAlgo < 1 || hashAlgo > 5)
                     {
                         Console.Write("Please enter valid choice (1 - 5): ");
                         hashIn = Console.ReadLine();
-                        result = Int32.TryParse(hashIn, out hashAlgo);
+                        result = int.TryParse(hashIn, out hashAlgo);
                     }
                 }
             }

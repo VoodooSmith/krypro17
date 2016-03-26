@@ -21,23 +21,40 @@ namespace ECScalarMultiplication
     {
         static void Main(string[] args)
         {
-            EllipticCurve P224 = EllipticCurve.P224();
-            ECPoint basePoint = new ECPoint();
+            Console.WriteLine("###########################################");
+            Console.WriteLine("#                                         #");
+            Console.WriteLine("# Welcome to the EC scalar multiplication #");
+            Console.WriteLine("#                                         #");
+            Console.WriteLine("###########################################");
+
+            EllipticCurve P224 = EllipticCurve.CreateP224();
             ECPoint P = new ECPoint();
-            ECPoint Q = new ECPoint();
-            ECPoint test = new ECPoint();
+            ECPoint Result = new ECPoint();
+            BigInteger scalar = 0;
+            string userInput;
+            bool result = false;
 
             P.SetECPoint(BigInteger.Parse("2"), BigInteger.Parse("6"));
-            Q.SetECPoint(BigInteger.Parse("2"), BigInteger.Parse("6"));
-            test = CurveMethods.PointAddition(P, Q, P224);
-            test.printPoint();
 
-            //basePoint.SetECPoint(p224.GetBaseX(), p224.GetBaseY());
-            //basePoint.printPoint();
-            //p224.CurveToString();
+            Console.Write("\nPlease enter scalar for multiplication: ");
+            userInput = Console.ReadLine();
 
-            Console.WriteLine("\nPress the any key to end...");
+            while (!result || scalar < 0)
+            {
+                result = BigInteger.TryParse(userInput, out scalar);
+                if (!result || scalar < 0)
+                {
+                    Console.Write("Please enter valid number ( > 0 ): ");
+                    userInput = Console.ReadLine();
+                    result = BigInteger.TryParse(userInput, out scalar);
+                }
+            }
+
+            Result = CurveMethods.ScalarMultiplication(P, scalar, P224);
+            Result.printPoint();
+
+            Console.WriteLine("Press the any key to end...");
             Console.ReadKey();
-        }
+        }       
     }
 }

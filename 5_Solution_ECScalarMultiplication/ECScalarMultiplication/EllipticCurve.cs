@@ -11,7 +11,7 @@ using System;
 using System.Globalization;
 using System.Numerics;
 
- public class EllipticCurve
+class EllipticCurve
 {
     private string curveName;       //name of the EC
     private BigInteger p;           //Prime modulus p
@@ -21,7 +21,7 @@ using System.Numerics;
     private BigInteger BPx;         //Basepoint x-coordinate
     private BigInteger BPy;         //Basepoint y-coordinate
 
-   public static EllipticCurve P224()
+   public static EllipticCurve CreateP224()
     {
         EllipticCurve curve224 = new EllipticCurve();
                 

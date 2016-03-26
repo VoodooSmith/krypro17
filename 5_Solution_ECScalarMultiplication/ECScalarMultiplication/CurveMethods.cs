@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Numerics;
 
 
@@ -11,6 +12,7 @@ class CurveMethods
         {
             return PointDuplication(P, P224);
         }
+        //Console.WriteLine("PointAddition");
         ECPoint R = new ECPoint();
 
         /* Calculation of Rx */
@@ -31,7 +33,7 @@ class CurveMethods
     public static ECPoint PointDuplication(ECPoint P, EllipticCurve P224)
     {
         ECPoint R = new ECPoint();
-        Console.WriteLine("Bin da, wer noch?!");
+        //Console.WriteLine("PointDuplication\n");
 
         /* Calculation of Rx */
         BigInteger x1 = BigInteger.Multiply(3, BigInteger.ModPow(P.GetX(), 2, P224.GetModulus()));
@@ -44,6 +46,106 @@ class CurveMethods
         R.SetY(BigInteger.Subtract(BigInteger.Multiply(y2, BigInteger.Subtract(P.GetX(), R.GetX())), P.GetY()));
 
         return R;
+    }
+
+
+    public static ECPoint ScalarMultiplication(ECPoint P, BigInteger scalarBigInt, EllipticCurve P224)
+    {
+        string scalar = ToBinaryString(scalarBigInt);
+        int counter = 0;
+        ECPoint Tmp = new ECPoint();
+        ECPoint Result = new ECPoint();
+
+        Console.WriteLine("\nBinary format of scalar: {0}", scalar);
+
+        Result.SetECPoint(0, 0);
+        Tmp = P;
+
+        for (int i = 0; i < scalar.Length; i++)
+        {
+            if (Char.IsDigit(scalar[i]))
+                if (Char.GetNumericValue(scalar[i]) == 1)
+                    counter++;
+        }
+        //Console.WriteLine("Binary Check\n");
+
+        for (int n = scalar.Length-1; n >= 0 ; n--)
+        {
+            if (Char.IsDigit(scalar[n]))
+            {
+                if (Char.GetNumericValue(scalar[n]) == 1)
+                {
+                    //Console.WriteLine("Binary = 1");
+                    Result = PointAddition(Result, Tmp, P224);
+                    Tmp = PointDuplication(Tmp, P224);
+                }
+                else
+                {
+                    //Console.WriteLine("Binary = 0");
+                    Result = PointDuplication(Tmp, P224);
+                }
+            }
+        }
+        return Result;
+    }
+
+    /* Dispaly bytes in big endian order in own row */
+    public static void DisplayBytes(byte[] array)
+    {
+        foreach (byte value in array)
+        {
+            Console.Write(value);
+            Console.Write(' ');
+        }
+        Console.WriteLine("\n");
+    }
+
+    /* Dispaly bytes in numbered rows */
+    public static void DisplayNumberedBytes(byte[] binInt)
+    {
+        int i = 0;
+        foreach (byte bin in binInt)
+        {
+            Console.WriteLine("{0}.Byte = {1}", i++, bin);
+        }
+        Console.WriteLine();
+    }
+
+    /// <summary>
+    /// Converts a <see cref="BigInteger"/> to a binary string.
+    /// </summary>
+    /// <param name="bigint">A <see cref="BigInteger"/>.</param>
+    /// <returns>
+    /// A <see cref="System.String"/> containing a binary
+    /// representation of the supplied <see cref="BigInteger"/>.
+    /// </returns>
+    public static string ToBinaryString(BigInteger bigint)
+    {
+        var bytes = bigint.ToByteArray();
+        var bytelen = bytes.Length - 1;
+
+        // Create a StringBuilder having appropriate capacity.
+        var base2 = new StringBuilder(bytes.Length * 8);
+
+        // Convert first byte to binary.
+        var binary = Convert.ToString(bytes[bytelen], 2);
+        
+
+        //// Ensure leading zero exists if value is positive.
+        //if (binary[0] != '0' && bigint.Sign == 1)
+        //{
+        //    base2.Append('0');
+        //}
+
+        // Append binary string to StringBuilder.
+        base2.Append(binary);
+
+        // Convert remaining bytes adding leading zeros.
+        for (bytelen--; bytelen >= 0; bytelen--)
+        {
+            base2.Append(Convert.ToString(bytes[bytelen], 2).PadLeft(8, '0'));
+        }
+        return base2.ToString();
     }
 }
 
