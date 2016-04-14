@@ -41,10 +41,10 @@ struct ECPoint
         return y;
     }
 
-    public void printPoint ()
+    public void PrintPoint()
     {
         Console.WriteLine("\nCoordinates of EC Point");
-        Console.WriteLine("X: {0}\nY: {1}\n", this.x, this.y);
+        Console.WriteLine("X: {0}\nY: {1}\n", x, y);
     }
 }
 

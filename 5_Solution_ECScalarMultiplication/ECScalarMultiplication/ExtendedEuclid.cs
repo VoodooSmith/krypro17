@@ -13,7 +13,7 @@ public class ExtendedEuclidianAlgo
 
         if (m > n)
         {
-            /* Bevor the calculation, "n" and "m" have to switch places */
+            /* Before the calculation, "n" and "m" have to switch places */
             temp = n;
             n = m;
             m = temp;

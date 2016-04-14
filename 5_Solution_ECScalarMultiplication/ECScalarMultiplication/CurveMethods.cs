@@ -20,12 +20,17 @@ class CurveMethods
             BigInteger.Multiply(
                 BigInteger.Subtract(Q.GetY(), P.GetY()), ExtendedEuclidianAlgo.ExtendedEuclid(BigInteger.Subtract(Q.GetX(), P.GetX()), P224.GetModulus())), 2, P224.GetModulus());
         R.SetX(BigInteger.Subtract(sx, BigInteger.Subtract(P.GetX(), Q.GetX())));
+        R.SetX(R.GetX() % P224.GetModulus());
 
         /* Calculation of Ry */
         BigInteger sy1 = BigInteger.Multiply(
             BigInteger.Subtract(Q.GetY(), P.GetY()), ExtendedEuclidianAlgo.ExtendedEuclid(BigInteger.Subtract(Q.GetX(), P.GetX()), P224.GetModulus()));
         BigInteger sy2 = BigInteger.Subtract(BigInteger.Subtract(P.GetX(), R.GetX()), P.GetY());
         R.SetY(BigInteger.Multiply(sy1, sy2));
+        R.SetY(R.GetY() % P224.GetModulus());
+
+        /* Reflect point R' to get R */
+        R = Mirror(R);
 
         return R;
     }
@@ -39,16 +44,21 @@ class CurveMethods
         BigInteger x1 = BigInteger.Multiply(3, BigInteger.ModPow(P.GetX(), 2, P224.GetModulus()));
         BigInteger x2 = BigInteger.Multiply(BigInteger.Add(x1, P224.GetA()), ExtendedEuclidianAlgo.ExtendedEuclid(BigInteger.Multiply(2, P.GetY()), P224.GetModulus()));
         R.SetX(BigInteger.Subtract(BigInteger.ModPow(x2, 2, P224.GetModulus()), BigInteger.Multiply(2, P.GetX())));
-        
+        R.SetX(R.GetX() % P224.GetModulus());
+
         /* Calculation of Ry */
         BigInteger y1 = BigInteger.Multiply(3, BigInteger.ModPow(P.GetX(), 2, P224.GetModulus()));
         BigInteger y2 = BigInteger.Multiply(BigInteger.Add(y1, P224.GetA()), ExtendedEuclidianAlgo.ExtendedEuclid(BigInteger.Multiply(2, P.GetY()), P224.GetModulus()));
         R.SetY(BigInteger.Subtract(BigInteger.Multiply(y2, BigInteger.Subtract(P.GetX(), R.GetX())), P.GetY()));
+        R.SetY(R.GetY() % P224.GetModulus());
+        
+        /* Reflect point R' to get R */
+        R = Mirror(R);
 
         return R;
     }
 
-
+    /* Scalar Multiplication */ 
     public static ECPoint ScalarMultiplication(ECPoint P, BigInteger scalarBigInt, EllipticCurve P224)
     {
         string scalar = ToBinaryString(scalarBigInt);
@@ -89,6 +99,22 @@ class CurveMethods
         return Result;
     }
 
+    /* Reflect R' to get R */
+    public static ECPoint Mirror(ECPoint R)
+    {
+        ECPoint Reflect = R;
+
+        if (Reflect.GetY() < 0 || Reflect.GetY() > 0)
+        {
+            Reflect.SetY(BigInteger.Multiply(R.GetY(), -1));
+        } if(Reflect.GetY() == BigInteger.Zero)
+        {
+            return R;
+        }
+        return Reflect;
+    }
+
+
     /* Dispaly bytes in big endian order in own row */
     public static void DisplayBytes(byte[] array)
     {
@@ -99,6 +125,7 @@ class CurveMethods
         }
         Console.WriteLine("\n");
     }
+
 
     /* Dispaly bytes in numbered rows */
     public static void DisplayNumberedBytes(byte[] binInt)
@@ -111,15 +138,9 @@ class CurveMethods
         Console.WriteLine();
     }
 
-    /// <summary>
-    /// Converts a <see cref="BigInteger"/> to a binary string.
-    /// </summary>
-    /// <param name="bigint">A <see cref="BigInteger"/>.</param>
-    /// <returns>
-    /// A <see cref="System.String"/> containing a binary
-    /// representation of the supplied <see cref="BigInteger"/>.
-    /// </returns>
-    public static string ToBinaryString(BigInteger bigint)
+
+    /* Convert scalar to binary string */
+     public static string ToBinaryString(BigInteger bigint)
     {
         var bytes = bigint.ToByteArray();
         var bytelen = bytes.Length - 1;
@@ -129,13 +150,6 @@ class CurveMethods
 
         // Convert first byte to binary.
         var binary = Convert.ToString(bytes[bytelen], 2);
-        
-
-        //// Ensure leading zero exists if value is positive.
-        //if (binary[0] != '0' && bigint.Sign == 1)
-        //{
-        //    base2.Append('0');
-        //}
 
         // Append binary string to StringBuilder.
         base2.Append(binary);

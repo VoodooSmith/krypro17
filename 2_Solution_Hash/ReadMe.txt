@@ -3,7 +3,7 @@
 #	Hash Setup	#
 #				#
 #################
-
+by Thomas Schmiedecker
 
 Solution Parts
 ******************************

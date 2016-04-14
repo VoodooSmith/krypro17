@@ -3,6 +3,7 @@
 #   RSA Setup   #
 #               #
 #################
+by Thomas Schmiedecker
 
 Program start
 ******************************
