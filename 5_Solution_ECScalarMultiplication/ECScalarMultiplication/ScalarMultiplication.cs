@@ -3,7 +3,7 @@
   EC Scalar Multiplication
   Cryptographic Protocolls ITS17
   Author: Thomas Schmiedecker
-  21. 03. 2016
+  16. 04. 2016
   
 */
 

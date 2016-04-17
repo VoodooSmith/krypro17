@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ 
+  Client / Server Communication
+  Cryptographic Protocolls ITS17
+  Author: Thomas Schmiedecker
+  16. 04. 2016
+  
+*/
+
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;

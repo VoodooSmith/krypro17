@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+ 
+  X.509 - Certificate reading and verifing
+  Cryptographic Protocolls ITS17
+  Author: Thomas Schmiedecker
+  16. 04. 2016
+  
+*/
+
+
+using System;
 using System.Security.Cryptography.X509Certificates;
 
 namespace X509

@@ -1,6 +1,15 @@
-﻿    using System;
-    using System.Globalization;
-    using System.Numerics;
+﻿/*
+ 
+  DSA - Signing and Verifing 
+  Cryptographic Protocolls ITS17
+  Author: Thomas Schmiedecker
+  16. 04. 2016
+  
+*/
+
+using System;
+using System.Globalization;
+using System.Numerics;
 
 
 public class DSAClass
@@ -77,7 +86,6 @@ public class DSAClass
 
     private static void Sign(BigInteger alpha, System.Security.Cryptography.HashAlgorithm secHash)
     {
-        
         BigInteger proof = BigInteger.Zero, k = BigInteger.Zero, invertk = BigInteger.Zero;
 
         /* Get random k and invers of k */
