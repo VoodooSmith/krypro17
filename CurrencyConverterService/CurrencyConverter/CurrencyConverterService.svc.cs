@@ -7,7 +7,7 @@
 //using System.Text;
 using System.Xml;
 
-namespace CurrencyConverterService  
+namespace CurrencyConverterService
 {
     public class CurrencyConverter : CurrencyConverterInterface
     {
@@ -33,22 +33,22 @@ namespace CurrencyConverterService
 
         }
 
-        //public double GetCurrency(string curr)
-        //{
-        //    double value = 0.0;
+        public double GetCurrency(string curr)
+        {
+            double value = 10.0;
 
-        //    XmlDocument doc = new XmlDocument();
-        //    doc.Load("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml");
-        //    XmlElement root = doc.DocumentElement;
-        //    XmlNodeList nodes = root.SelectNodes("gesmes:Envelope");
-        //    Console.WriteLine(doc.DocumentElement);
+            //    XmlDocument doc = new XmlDocument();
+            //    doc.Load("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml");
+            //    XmlElement root = doc.DocumentElement;
+            //    XmlNodeList nodes = root.SelectNodes("gesmes:Envelope");
+            //    Console.WriteLine(doc.DocumentElement);
 
-        //    foreach (XmlNode node in nodes)
-        //    {
-        //        Console.WriteLine(node);
-        //    }
-        //    //    Console.WriteLine("Currency: {0}\nRate: {1}\n", currency, rate);
-        //    return value;
+            //    foreach (XmlNode node in nodes)
+            //    {
+            //        Console.WriteLine(node);
+            //    }
+            //    //    Console.WriteLine("Currency: {0}\nRate: {1}\n", currency, rate);
+            return value;
         }
     }
 }
