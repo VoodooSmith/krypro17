@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 
 namespace WCFServiceWebRole1
 {
@@ -14,7 +9,7 @@ namespace WCFServiceWebRole1
     {
 
         [OperationContract]
-        string GetData(int value);
+        string GetData();
 
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
@@ -28,7 +23,7 @@ namespace WCFServiceWebRole1
     public class CompositeType
     {
         bool boolValue = true;
-        string stringValue = "I don't have a clue how it is supposed to work!!!!111elf";
+        string stringValue = "I didn't even had a clue, how it is supposed to work!!!!111elf";
 
         [DataMember]
         public bool BoolValue
