@@ -18,8 +18,9 @@ namespace X509
         static void Main(string[] args)
         {
             /* Certificate created with Visual Studio */
-            //string xFile = "C:\\Users\\Thoma_000\\Documents\\Visual Studio 2015\\Projects\\7_Solution_X509\\X509\\testcert.cer";
-            string xFile = "C:\\Users\\Thoma_000\\Documents\\Visual Studio 2015\\Projects\\7_Solution_X509\\X509\\VerisignTest.cer";
+            //string xFile = "C:\\Users\\Thoma_000\\Documents\\Visual Studio 2015\\Projects\\7_Solution_X509\\X509\\VerisignTest.cer";
+            //string xFile = "C:\\Users\\Tom\\Source\\Repos\\krypro17\\7_Solution_X509\\X509\\GeoTrust.cer";
+            string xFile = "C:\\Users\\Tom\\Source\\Repos\\krypro17\\7_Solution_X509\\X509\\DigiCert.cer";
 
             try
             {

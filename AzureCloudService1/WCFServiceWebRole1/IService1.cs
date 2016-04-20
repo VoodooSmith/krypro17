@@ -7,12 +7,14 @@ namespace WCFServiceWebRole1
     [ServiceContract]
     public interface IService1
     {
+        [OperationContract]
+        string GetUsd(double curr);
 
         [OperationContract]
-        string GetData();
+        string GetYen(double curr);
 
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        //[OperationContract]
+        //CompositeType GetDataUsingDataContract(CompositeType composite);
 
         // TODO: Add your service operations here
     }
