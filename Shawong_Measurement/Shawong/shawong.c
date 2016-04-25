@@ -1,4 +1,16 @@
+/*
+	Title:	SHA1 Measurement
+	Author:	Thomas Schmiedecker
+	Class:	ITS17
+	Date:	25.06.2016
+*/
+
 #include <openssl/sha.h>
+/* 
+	openssl/include - C/C++/General		> Additional Include Directories
+	openssl/lib		- Linker/General	> Additional Library Directories
+	libeay32.lib	- Linker/Input		> Additional Dependencies
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
